@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:ungeskriptet/nixpkgs/wine-smartcard";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
