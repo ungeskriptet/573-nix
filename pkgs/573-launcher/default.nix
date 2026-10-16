@@ -108,6 +108,7 @@ writeShellApplication {
 
     ln -sf ${bmsound}/bmsound-*{.so,.dll} "$GAMEDIR"/gamedata/contents/modules
     ln -sf ${spice2x}/{${spiceExe},spicecfg.exe} "$GAMEDIR"/gamedata/contents
+    ln -sf ${spice2x}/stubs/64/* "$GAMEDIR"/gamedata/contents/modules
 
     cd "$GAMEDIR"/gamedata/contents
 
