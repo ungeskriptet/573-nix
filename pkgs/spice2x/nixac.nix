@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  buildPackages,
   fetchFromCodeberg,
   cmake,
   libarchive,
@@ -14,16 +15,16 @@ assert targets != [ ];
 assert files != { };
 stdenv.mkDerivation (finalAttrs: {
   pname = "spice2x";
-  version = "0.2.4_2026-02-17";
+  version = "0.2.4_2026-02-17-unstable-2026-10-06";
 
   src = fetchFromCodeberg {
     owner = "nixac";
     repo = "spicetools";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-9CjSy4MNXGl/hrZeugbWKUSm64MxWGKkwGa7e2aePIM=";
+    rev = "7488463ca153601a2403dbce968f1b507922203c";
+    hash = "sha256-TZHf1OMUKVo8CZVmbtusC6/oIiAdZJwjzpI0uK9EEYU=";
   };
 
-  mitmCache = mitm-cache.fetch {
+  mitmCache = buildPackages.mitm-cache.fetch {
     name = "${finalAttrs.pname}-deps";
     data = {
       "https://web.archive.org/web/20260212204718if_/https://download.zip.dll-files.com/d01cab97ad497201c4ad99eb6e4182b3/dsdmo.zip?token=f7cVie5KOSz-hnFUYC37Ow&expires=1770974229".hash =
@@ -31,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
       "https://web.archive.org/web/20260212203516if_/https://download.zip.dll-files.com/2627c69b89807078f5fdf63ee104dddf/dsdmo.zip?token=1rLcDAA2LFA6YRyinX0GXg&expires=1770973374".hash =
         "sha256-rwBwAo60BTD4wf0U6DVqAc2nksVz81qeJ7NKwMIaCHo=";
     };
+    passthru.updateScript = buildPackages.writeShellScript "" "";
   };
 
   strictDeps = true;
@@ -45,13 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   ninjaFlags = targets;
 
-  postPatch = ''
-    substituteInPlace overlay/windows/config.cpp \
-      --replace-fail \
-      "ImGui::TextColored(ImVec4(1.f, 0.7f, 0, 1), cat.c_str());" \
-      "ImGui::TextColored(ImVec4(1.f, 0.7f, 0, 1), \"%s\", cat.c_str());"
-  '';
-
   installPhase = ''
     runHook preInstall
     ${lib.concatStringsSep "\n" (
@@ -64,4 +59,12 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   __structuredAttrs = true;
+
+  passthru.updateScript = buildPackages.nix-update-script {
+    extraArgs = [
+      "--flake"
+      "--version"
+      "branch=spice22x"
+    ];
+  };
 })
