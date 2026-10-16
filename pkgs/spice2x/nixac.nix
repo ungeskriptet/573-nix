@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  callPackage,
   fetchFromCodeberg,
   cmake,
   libarchive,
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9CjSy4MNXGl/hrZeugbWKUSm64MxWGKkwGa7e2aePIM=";
   };
 
-  mitmCache = (callPackage ../mitm-cache-fetch.nix { }) {
+  mitmCache = mitm-cache.fetch {
     name = "${finalAttrs.pname}-deps";
     data = {
       "https://web.archive.org/web/20260212204718if_/https://download.zip.dll-files.com/d01cab97ad497201c4ad99eb6e4182b3/dsdmo.zip?token=f7cVie5KOSz-hnFUYC37Ow&expires=1770974229".hash =
