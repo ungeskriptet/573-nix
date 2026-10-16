@@ -11,6 +11,7 @@
   python3,
   wine64Packages,
   winePackages,
+  nix-update-script,
 }:
 assert (!stdenv.hostPlatform.isx86_64 || !stdenv.hostPlatform.isx86_32);
 let
@@ -21,13 +22,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "bmsound";
-  version = "0.2.4";
+  version = "0.2.4-unstable-2026-10-06";
 
   src = fetchFromCodeberg {
     owner = "nixac";
     repo = "bmsound_wine";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-QjBmOmloOoLvfUrAwPcuFet1k1xwjS9CGKjYv6WEM+0=";
+    rev = "213f4bc8becb944fe4b231caa88ae95e6d5ba53d";
+    hash = "sha256-gKQB6cWVksd6mH3ucdTwOgJKyGVcel+qwJ0Vh/8mWQQ=";
     fetchSubmodules = true;
     leaveDotGit = true;
   };
@@ -69,4 +70,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   __structuredAttrs = true;
+
+  passthru = {
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--flake"
+        "--version"
+        "branch=master"
+      ];
+    };
+  };
 })
