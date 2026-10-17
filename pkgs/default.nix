@@ -54,6 +54,7 @@ lib.makeScope newScope (
       spiceDefaultArgs = [
         "-audiobackend pipewire"
         "-audiodummy"
+        "-runas user"
       ];
     };
     iidx-33-sparkle-shower-data = self.callPackage ./iidx/33-sparkle-shower.nix { };
