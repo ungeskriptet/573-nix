@@ -26,3 +26,9 @@ nix store using `nix store add`.
 
 If you use NixOS, it's recommended to incorporate this flake into your NixOS config to prevent
 garbage collection of the game data.
+
+### Troubleshooting
+
+#### Game window is too big / Has wrong scaling
+
+Try launching `winecfg` using `--winecfg` and increasing the DPI.
