@@ -55,6 +55,7 @@ writeShellApplication {
     -h, --help     Show help and exit
     -p, --path     Change default path where game data is stored (Default: $GAMEDIR)
     -c, --cfg      Launch spicecfg.exe
+    -wc, --winecfg Launch winecfg
     --fix-display  Do not unset \$DISPLAY variable
     EOF
     exit "$1"
@@ -68,6 +69,7 @@ writeShellApplication {
 
     LAUNCH_CFG=0
     UNSET_DISPLAY=1
+    WINECFG=0
 
     while [ $# -gt 0 ]; do
       case "$1" in
@@ -75,6 +77,7 @@ writeShellApplication {
         --path|-p) GAMEDIR="$2" ; shift 2 ;;
         --cfg|-c) LAUNCH_CFG=1; shift ;;
         --fix-display) UNSET_DISPLAY=0 ; shift ;;
+        --winecfg|-wc) WINECFG=1; shift ;;
         *) break ;;
       esac
     done
@@ -114,6 +117,8 @@ writeShellApplication {
 
     if [ "$LAUNCH_CFG" -eq 1 ]; then
       wine spicecfg.exe
+    elif [ "$WINECFG" -eq 1 ]; then
+      winecfg
     else
       wine ${spiceExe} ${lib.concatStringsSep " " spiceDefaultArgs} "$@"
     fi
