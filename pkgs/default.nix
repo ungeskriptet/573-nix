@@ -58,6 +58,16 @@ lib.makeScope newScope (
       ];
     };
     iidx-33-sparkle-shower-data = self.callPackage ./iidx/33-sparkle-shower.nix { };
+    iidx-34-zinrai = _573-launcher {
+      gamePkg = self.iidx-34-zinrai-data;
+      spice2x = self.spice2x-nixac;
+      spiceDefaultArgs = [
+        "-audiobackend pipewire"
+        "-audiodummy"
+        "-runas user"
+      ];
+    };
+    iidx-34-zinrai-data = self.callPackage ./iidx/34-zinrai.nix { };
     bmsound = self.callPackage ./bmsound/default.nix { };
     spice2x = pkgs.symlinkJoin {
       name = "spice2x";
