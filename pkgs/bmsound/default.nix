@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "nixac";
     repo = "bmsound_wine";
     rev = "213f4bc8becb944fe4b231caa88ae95e6d5ba53d";
-    hash = "sha256-gKQB6cWVksd6mH3ucdTwOgJKyGVcel+qwJ0Vh/8mWQQ=";
+    hash = "sha256-u4R+hEoBHkTnjoUDcw2BlKHTVkGuLuxxC+0FOcTdhh8=";
     fetchSubmodules = true;
     leaveDotGit = true;
   };
