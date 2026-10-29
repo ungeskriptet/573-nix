@@ -40,7 +40,7 @@ writeShellApplication {
     "nounset"
     "pipefail"
   ];
-  inheritPath = false;
+  inheritPath = true;
   text = ''
     GAMEDIR=''${XDG_DATA_HOME:-"$HOME/.local/share"}/573-games
 
