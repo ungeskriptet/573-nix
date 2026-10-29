@@ -115,12 +115,22 @@ writeShellApplication {
 
     cd "$GAMEDIR"/gamedata/contents
 
+    if systemd-inhibit &> /dev/null; then
+      inhibit=(
+        systemd-inhibit
+       --what idle:sleep
+       --why "spice2x game is running"
+      )
+    else
+      inhibit=()
+    fi
+
     if [ "$LAUNCH_CFG" -eq 1 ]; then
       wine spicecfg.exe
     elif [ "$WINECFG" -eq 1 ]; then
       winecfg
     else
-      wine ${spiceExe} ${lib.concatStringsSep " " spiceDefaultArgs} "$@"
+      "''${inhibit[@]}" wine ${spiceExe} ${lib.concatStringsSep " " spiceDefaultArgs} "$@"
     fi
   '';
 }
